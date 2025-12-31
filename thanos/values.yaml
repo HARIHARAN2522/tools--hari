@@ -1,0 +1,130 @@
+# thanos/values.yaml
+# Global config
+global:
+  image:
+    repository: quay.io/thanos/thanos
+    tag: v0.37.0
+    pullPolicy: IfNotPresent
+
+# Object store config (S3/GCS/MinIO)
+objstoreConfig:
+  secret:
+    name: thanos-objstore-config
+    key: objstore.yml
+
+# Querier
+querier:
+  enabled: true
+  replicas: 1
+  dnsDiscovery:
+    enabled: true
+  stores:
+    - "dnssrv+_grpc._tcp.prometheus-operated.monitoring.svc.cluster.local"
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 100m
+    limits:
+      memory: 1Gi
+      cpu: 500m
+
+# Store Gateway
+storegateway:
+  enabled: true
+  replicas: 1
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 100m
+    limits:
+      memory: 1Gi
+      cpu: 500m
+
+# Compactor
+compactor:
+  enabled: true
+  replicas: 1
+  retentionResolutionRaw: "30d"
+  retentionResolution5m: "180d"
+  retentionResolution1h: "1y"
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 100m
+    limits:
+      memory: 1Gi
+      cpu: 500m
+
+# Ruler (optional)
+ruler:
+  enabled: false
+  rules:
+    - name: example
+      rules:
+        - alert: HighRequestLatency
+          expr: job:request_latency_seconds:mean5m{job="myjob"} > 0.5
+          for: 10m
+          labels:
+            severity: page
+          annotations:
+            summary: "High latency on {{ $labels.job }}"
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 100m
+    limits:
+      memory: 1Gi
+      cpu: 500m
+
+# Receiver (optional)
+receiver:
+  enabled: false
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 100m
+    limits:
+      memory: 1Gi
+      cpu: 500m
+
+# Bucket Web UI (optional)
+bucketweb:
+  enabled: false
+  resources:
+    requests:
+      memory: 128Mi
+      cpu: 50m
+    limits:
+      memory: 256Mi
+      cpu: 100m
+
+# Metrics (optional)
+metrics:
+  enabled: false
+  resources:
+    requests:
+      memory: 128Mi
+      cpu: 50m
+    limits:
+      memory: 256Mi
+      cpu: 100m
+
+# Namespace
+namespace: thanos
+
+# Service account
+serviceAccount:
+  create: true
+  name: ""
+
+# Security context
+securityContext:
+  fsGroup: 2000
+  runAsUser: 1000
+  runAsGroup: 2000
+
+# Pod security context
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 2000
