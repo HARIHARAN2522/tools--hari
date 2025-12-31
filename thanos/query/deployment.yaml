@@ -1,0 +1,23 @@
+{{- if .Values.query.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+meta
+  name: {{ include "thanos.fullname" . }}-query
+  namespace: {{ .Release.Namespace }}
+spec:
+  template:
+    spec:
+      containers:
+      - name: query
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        args:
+          - query
+          - --http-address=0.0.0.0:{{ .Values.query.ports.http }}
+          - --grpc-address=0.0.0.0:{{ .Values.query.ports.grpc }}
+          {{- range .Values.query.stores }}
+          - --store={{ . }}
+          {{- end }}
+        ports:
+          - containerPort: {{ .Values.query.ports.http }}
+          - containerPort: {{ .Values.query.ports.grpc }}
+{{- end }}
