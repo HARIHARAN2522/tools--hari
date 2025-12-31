@@ -1,0 +1,16 @@
+# thanos/Chart.yaml
+apiVersion: v2
+name: thanos
+description: A Helm chart for Thanos (event-driven autoscaler for Prometheus)
+type: application
+version: 0.37.0  # Match Thanos app version
+appVersion: 0.37.0
+keywords:
+  - thanos
+  - prometheus
+  - monitoring
+  - metrics
+  - autoscaling
+maintainers:
+  - name: Your Name
+    email: your-email@example.com
