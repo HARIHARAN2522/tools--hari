@@ -7,13 +7,14 @@ global:
     pullPolicy: IfNotPresent
 
 # Object store config (S3/GCS/MinIO)
-objstoreConfig:
+bucketConfig:
   secret:
     name: thanos-objstore-config
     key: objstore.yml
 
-# Querier
-querier:
+
+# Query (Querier)
+query:
   enabled: true
   replicas: 1
   dnsDiscovery:
@@ -28,6 +29,7 @@ querier:
       memory: 1Gi
       cpu: 500m
 
+    
 # Store Gateway
 storegateway:
   enabled: true
@@ -109,19 +111,12 @@ metrics:
       memory: 256Mi
       cpu: 100m
 
-# Namespace
-namespace: thanos
 
 # Service account
 serviceAccount:
   create: true
   name: ""
 
-# Security context
-securityContext:
-  fsGroup: 2000
-  runAsUser: 1000
-  runAsGroup: 2000
 
 # Pod security context
 podSecurityContext:
