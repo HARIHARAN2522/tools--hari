@@ -26,6 +26,7 @@ spec:
           image: "{{ .Values.global.image.repository }}:{{ .Values.global.image.tag }}"
           args:
             - compact
+             - --wait
             - --data-dir=/var/thanos/compact
             - --objstore.config-file=/etc/thanos/objstore.yml
             - --http-address=0.0.0.0:10902
