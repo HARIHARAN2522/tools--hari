@@ -30,7 +30,7 @@ spec:
         image: "{{ .Values.global.image.repository }}:{{ .Values.global.image.tag }}"
         imagePullPolicy: {{ .Values.global.image.pullPolicy }}
         args:
-          - storegateway
+          - store
           - --objstore.config=$(OBJSTORE_CONFIG)
         env:
         - name: OBJSTORE_CONFIG
