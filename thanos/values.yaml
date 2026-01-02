@@ -26,6 +26,9 @@ query:
     enabled: true
   stores:
     - "dnssrv+_grpc._tcp.prometheus-operated.monitoring.svc.cluster.local"
+  ports:
+    http: 10902
+    grpc: 10901
   resources:
     requests:
       memory: 512Mi
