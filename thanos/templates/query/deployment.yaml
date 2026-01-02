@@ -1,23 +1,53 @@
 {{- if .Values.query.enabled }}
+---
 apiVersion: apps/v1
 kind: Deployment
-meta
+metadata:
   name: {{ include "thanos.fullname" . }}-query
   namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "thanos.labels" . | nindent 4 }}
+    component: query
 spec:
+  replicas: {{ .Values.query.replicas }}
+  selector:
+    matchLabels:
+      {{- include "thanos.selectorLabels" . | nindent 6 }}
+      component: query
   template:
+    metadata:
+      labels:
+        {{- include "thanos.selectorLabels" . | nindent 8 }}
+        component: query
+      annotations: {}
     spec:
+      serviceAccountName: {{ include "thanos.serviceAccountName" . }}
       containers:
       - name: query
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: "{{ .Values.global.image.repository }}:{{ .Values.global.image.tag }}"
+        imagePullPolicy: {{ .Values.global.image.pullPolicy }}
         args:
           - query
-          - --http-address=0.0.0.0:{{ .Values.query.ports.http }}
-          - --grpc-address=0.0.0.0:{{ .Values.query.ports.grpc }}
           {{- range .Values.query.stores }}
           - --store={{ . }}
           {{- end }}
         ports:
-          - containerPort: {{ .Values.query.ports.http }}
-          - containerPort: {{ .Values.query.ports.grpc }}
+        - containerPort: {{ .Values.query.ports.http | default 10902 }}
+          name: http
+        - containerPort: {{ .Values.query.ports.grpc | default 10901 }}
+          name: grpc
+        resources:
+          {{- toYaml .Values.query.resources | nindent 10 }}
+        livenessProbe:
+          httpGet:
+            path: /-/healthy
+            port: http
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /-/ready
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 5
 {{- end }}
