@@ -6,6 +6,11 @@ global:
     tag: v0.37.0
     pullPolicy: IfNotPresent
 
+image:
+  repository: quay.io/thanos/thanos
+  tag: v0.37.0
+  pullPolicy: IfNotPresent
+
 # Object store config (S3/GCS/MinIO)
 bucketConfig:
   secret:
