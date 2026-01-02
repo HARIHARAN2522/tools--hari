@@ -2,7 +2,7 @@
 ---
 apiVersion: apps/v1
 kind: Deployment
-meta
+metadata:
   name: {{ include "thanos.fullname" . }}-storegateway
   namespace: {{ .Release.Namespace }}
   labels:
@@ -15,7 +15,7 @@ spec:
       {{- include "thanos.selectorLabels" . | nindent 6 }}
       component: storegateway
   template:
-    meta
+    metadata:
       labels:
         {{- include "thanos.selectorLabels" . | nindent 8 }}
         component: storegateway
