@@ -17,6 +17,12 @@ bucketConfig:
     name: thanos-objstore-config
     key: objstore.yml
 
+objstoreConfig:
+  secret:
+    create: false
+    name: thanos-objstore-config
+    key: objstore.yml
+
 
 # Query (Querier)
 query:
