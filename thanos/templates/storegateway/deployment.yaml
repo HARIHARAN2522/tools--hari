@@ -61,11 +61,15 @@ spec:
           - name: config
             mountPath: /etc/config
             readOnly: true
+            - name: cache
+            mountPath: /data 
       volumes:
         - name: config
           secret:
             secretName: {{ .Values.bucketConfig.secret.name }}
       {{- if .Values.storegateway.podSecurityContext }}
+      - name: cache           # ← Add this
+        emptyDir: {}
       securityContext:
         {{- toYaml .Values.storegateway.podSecurityContext | nindent 8 }}
       {{- end }}
