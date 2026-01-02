@@ -2,7 +2,7 @@
 ---
 apiVersion: apps/v1
 kind: Deployment
-metadata:
+meta
   name: {{ include "thanos.fullname" . }}-storegateway
   namespace: {{ .Release.Namespace }}
   labels:
@@ -15,7 +15,7 @@ spec:
       {{- include "thanos.selectorLabels" . | nindent 6 }}
       component: storegateway
   template:
-    metadata:
+    meta
       labels:
         {{- include "thanos.selectorLabels" . | nindent 8 }}
         component: storegateway
@@ -23,54 +23,52 @@ spec:
         # No ConfigMap used; secret is mounted directly
     spec:
       serviceAccountName: {{ include "thanos.serviceAccountName" . }}
+      {{- if .Values.podSecurityContext }}
       securityContext:
-        {{- toYaml .Values.storegateway.securityContext | nindent 8 }}
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- end }}
       containers:
-      - name: storegateway
-        image: "{{ .Values.global.image.repository }}:{{ .Values.global.image.tag }}"
-        imagePullPolicy: {{ .Values.global.image.pullPolicy }}
-        args:
-          - store
-          - --objstore.config=$(OBJSTORE_CONFIG)
-        env:
-        - name: OBJSTORE_CONFIG
-          valueFrom:
-            secretKeyRef:
-              name: {{ .Values.bucketConfig.secret.name }}
-              key: {{ .Values.bucketConfig.secret.key }}
-        ports:
-          - containerPort: 10901
-            name: grpc
-          - containerPort: 10902
-            name: http
-        resources:
-          {{- toYaml .Values.storegateway.resources | nindent 10 }}
-        livenessProbe:
-          httpGet:
-            path: /-/healthy
-            port: http
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /-/ready
-            port: http
-          initialDelaySeconds: 5
-          periodSeconds: 5
-        volumeMounts:
-          - name: config
-            mountPath: /etc/config
-            readOnly: true
+        - name: storegateway
+          image: "{{ .Values.global.image.repository }}:{{ .Values.global.image.tag }}"
+          imagePullPolicy: {{ .Values.global.image.pullPolicy }}
+          args:
+            - store
+            - --objstore.config=$(OBJSTORE_CONFIG)
+          env:
+            - name: OBJSTORE_CONFIG
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.objstoreConfig.secret.name }}
+                  key: {{ .Values.objstoreConfig.secret.key }}
+          ports:
+            - containerPort: 10901
+              name: grpc
+            - containerPort: 10902
+              name: http
+          resources:
+            {{- toYaml .Values.storegateway.resources | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /-/healthy
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /-/ready
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          volumeMounts:
+            - name: config
+              mountPath: /etc/config
+              readOnly: true
             - name: cache
-            mountPath: /data 
+              mountPath: /data
       volumes:
         - name: config
           secret:
-            secretName: {{ .Values.bucketConfig.secret.name }}
-      {{- if .Values.storegateway.podSecurityContext }}
-      - name: cache           # ← Add this
-        emptyDir: {}
-      securityContext:
-        {{- toYaml .Values.storegateway.podSecurityContext | nindent 8 }}
-      {{- end }}
+            secretName: {{ .Values.objstoreConfig.secret.name }}
+        - name: cache
+          emptyDir: {}
 {{- end }}
