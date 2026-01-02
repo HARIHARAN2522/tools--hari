@@ -30,7 +30,7 @@ spec:
         image: "{{ .Values.global.image.repository }}:{{ .Values.global.image.tag }}"
         imagePullPolicy: {{ .Values.global.image.pullPolicy }}
         args:
-          - compactor
+          - compact
           - --objstore.config=$(OBJSTORE_CONFIG)
           - --retention.resolution-raw={{ .Values.compactor.retentionResolutionRaw }}
           - --retention.resolution-5m={{ .Values.compactor.retentionResolution5m }}
