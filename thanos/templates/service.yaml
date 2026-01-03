@@ -5,7 +5,7 @@
 ---
 apiVersion: v1
 kind: Service
-meta:
+metadata:
   name: thanos-{{ $component }}
   namespace: {{ $.Release.Namespace }}
   labels:
