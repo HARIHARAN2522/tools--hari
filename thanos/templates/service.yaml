@@ -7,7 +7,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "thanos.fullname" $ }}-{{ $component }}
-  namespace: {{ include "thanos.namespace" $ }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     {{- include "thanos.labels" $ | nindent 4 }}
 spec:
@@ -21,6 +21,6 @@ spec:
       targetPort: http
   selector:
     {{- include "thanos.selectorLabels" $ | nindent 4 }}
-     component: {{ $component }}
+    app.kubernetes.io/component: {{ $component }}
   {{- end }}
 {{- end }}
