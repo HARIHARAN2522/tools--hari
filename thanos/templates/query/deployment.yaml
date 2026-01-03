@@ -6,10 +6,13 @@ metadata:
   name: {{ include "thanos.fullname" . }}-query
   namespace: {{ .Release.Namespace }}
   labels:
+    component: query
     {{- include "thanos.labels" . | nindent 4 }}
+    
 spec:
   replicas: {{ .Values.query.replicas }}
   selector:
+    component: {{ $component }}
     matchLabels:
       {{- include "thanos.selectorLabels" . | nindent 6 }}
       component: query
