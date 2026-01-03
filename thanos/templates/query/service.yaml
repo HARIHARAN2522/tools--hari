@@ -1,0 +1,22 @@
+{{- if .Values.query.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: thanos-query
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "thanos.labels" . | nindent 4 }}
+    app.kubernetes.io/component: query
+spec:
+  ports:
+    - name: http
+      port: 10902
+      targetPort: 10902
+    - name: grpc
+      port: 10901
+      targetPort: 10901
+  selector:
+    {{- include "thanos.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: query
+{{- end }}
