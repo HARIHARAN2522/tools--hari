@@ -21,6 +21,6 @@ spec:
       targetPort: http
   selector:
     {{- include "thanos.selectorLabels" $ | nindent 4 }}
-    app.kubernetes.io/component: {{ $component }}
+     component: {{ $component }}
   {{- end }}
 {{- end }}
