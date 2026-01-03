@@ -24,8 +24,8 @@ objstoreConfig:
     key: objstore.yml
 
 
-# Query (Querier)
-query:
+# Querier
+querier:
   enabled: true
   replicas: 1
   dnsDiscovery:
