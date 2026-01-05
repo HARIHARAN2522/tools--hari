@@ -130,24 +130,13 @@ configmapReload:
     resources: {}
 
 server:
-  # additionalScrapeConfigsSecret: additional-scrape-configs
-
-  # extraVolumes:
-  #   - name: additional-scrape-configs
-  #     secret:
-  #       secretName: additional-scrape-configs
-
-  # extraVolumeMounts:
-  #   - name: additional-scrape-configs
-  #     mountPath: /etc/prometheus/additional-scrape-configs
-  #     readOnly: true
   thanos:
     enabled: true
     image: quay.io/thanos/thanos
     tag: v0.34.1
     objectStorageConfig:
       secretName: thanos-objstore-config
-      secretKey: objstore.yml    
+      secretKey: objstore.yml 
 
 
   # (other server settings, like persistence, retention, etc.)
