@@ -130,17 +130,17 @@ configmapReload:
     resources: {}
 
 server:
-  additionalScrapeConfigsSecret: additional-scrape-configs
+  # additionalScrapeConfigsSecret: additional-scrape-configs
 
-  extraVolumes:
-    - name: additional-scrape-configs
-      secret:
-        secretName: additional-scrape-configs
+  # extraVolumes:
+  #   - name: additional-scrape-configs
+  #     secret:
+  #       secretName: additional-scrape-configs
 
-  extraVolumeMounts:
-    - name: additional-scrape-configs
-      mountPath: /etc/prometheus/additional-scrape-configs
-      readOnly: true
+  # extraVolumeMounts:
+  #   - name: additional-scrape-configs
+  #     mountPath: /etc/prometheus/additional-scrape-configs
+  #     readOnly: true
   thanos:
     enabled: true
     image: quay.io/thanos/thanos
