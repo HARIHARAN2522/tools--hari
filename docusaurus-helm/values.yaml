@@ -1,21 +1,27 @@
-# Image built from your Docusaurus site (you'll build & push this to a registry)
+# User-provided at deploy time — keep defaults minimal
 image:
-  repository: nginx  # fallback placeholder (or leave empty)
+  repository: nginx
   tag: alpine
   pullPolicy: IfNotPresent
 
-# Service
+nameOverride: ""
+
+replicaCount: 1
+
 service:
   type: ClusterIP
   port: 80
 
-# Ingress (optional — enable if you want a domain like docs.yourcompany.com)
 ingress:
   enabled: false
   className: nginx
-  host: docs.example.com
+  host: ""
   tls: false
-  # tls: true  # uncomment if using HTTPS
 
-# Replica count (1 is enough for static site)
-replicaCount: 1
+resources:
+  requests:
+    memory: "64Mi"
+    cpu: "50m"
+  limits:
+    memory: "128Mi"
+    cpu: "100m"
