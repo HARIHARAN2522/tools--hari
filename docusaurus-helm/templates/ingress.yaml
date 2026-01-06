@@ -1,0 +1,31 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "docusaurus-docs.fullname" . }}
+  {{- if .Values.ingress.tls }}
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"  # adjust if using cert-manager
+  {{- end }}
+spec:
+  {{- if .Values.ingress.className }}
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- end }}
+  {{- if .Values.ingress.tls }}
+  tls:
+    - hosts:
+        - {{ .Values.ingress.host }}
+      secretName: {{ .Values.ingress.host }}-tls
+  {{- end }}
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "docusaurus-docs.fullname" . }}
+                port:
+                  number: {{ .Values.service.port }}
+{{- end }}
