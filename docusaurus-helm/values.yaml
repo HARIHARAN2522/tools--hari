@@ -1,0 +1,21 @@
+# Image built from your Docusaurus site (you'll build & push this to a registry)
+image:
+  repository: your-registry.io/your-team/docusaurus-docs
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+# Service
+service:
+  type: ClusterIP
+  port: 80
+
+# Ingress (optional — enable if you want a domain like docs.yourcompany.com)
+ingress:
+  enabled: false
+  className: nginx
+  host: docs.example.com
+  tls: false
+  # tls: true  # uncomment if using HTTPS
+
+# Replica count (1 is enough for static site)
+replicaCount: 1
