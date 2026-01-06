@@ -1,6 +1,6 @@
 # User-provided at deploy time — keep defaults minimal
 image:
-  repository: ghcr.io/cloudmasa/docs-alice
+  repository: nginx
   tag: alpine
   pullPolicy: IfNotPresent
 
