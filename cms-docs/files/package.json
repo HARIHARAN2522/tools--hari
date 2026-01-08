@@ -1,12 +1,12 @@
 {
   "name": "CloudMaSa-docs",
   "scripts": {
-    "start": "cloudmasa start --host 0.0.0.0 --port 3000"
+    "start": "docusaurus start --host 0.0.0.0 --port 3000"
   },
   "dependencies": {
-    "@cloudmasa/core": "^3.0.0",
-    "@cloudmasa/preset-classic": "^3.0.0",
-    "react": "^18",
-    "react-dom": "^18"
+    "@docusaurus/core": "^3.5.2",
+    "@docusaurus/preset-classic": "^3.5.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
