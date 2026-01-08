@@ -9,7 +9,7 @@ module.exports = {
       '@docusaurus/preset-classic', 
       {
         docs: { routeBasePath: '/' },
-        blog: { enabled: true },
+        blog: {},
         theme: { 
           customCss: require.resolve('./src/css/custom.css')
         },
