@@ -1,5 +1,5 @@
 apiVersion: v2
-name: my-app-docs
+name: cms-docs
 description: CloudMaSa documentation served dynamically via Helm
 type: application
 version: 0.1.0
