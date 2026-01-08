@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "my-app-docs.fullname" . }}
+  name: {{ include "cms-docs.fullname" . }}
 spec:
   {{- if .Values.ingress.className }}
   ingressClassName: {{ .Values.ingress.className }}
@@ -15,7 +15,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ include "my-app-docs.fullname" . }}
+                name: {{ include "cms-docs.fullname" . }}
                 port:
                   number: {{ .Values.service.port }}
 {{- end }}
