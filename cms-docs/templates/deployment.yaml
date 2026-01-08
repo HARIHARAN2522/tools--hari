@@ -38,5 +38,5 @@ spec:
       volumes:
         - name: cloudmasa-source
           configMap:
-            name: {{ include "cms-docs.fullname" . }}-cloudmasa-source
+            name: {{ include "cms-docs.fullname" . }}-docusaurus-source
       restartPolicy: Always
