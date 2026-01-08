@@ -1,5 +1,6 @@
+//cms-docs/files/cloudmasa.config.js
 module.exports = {
-  title: 'My Docs',
+  title: 'CloudMaSa Docs',
   url: 'http://localhost',
   baseUrl: '/',
   onBrokenLinks: 'throw',
