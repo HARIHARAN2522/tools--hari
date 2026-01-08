@@ -10,7 +10,9 @@ module.exports = {
       {
         docs: { routeBasePath: '/' },
         blog: { enabled: true },
-        theme: { customCss: require.resolve('./src/css/custom.css') },
+        theme: { 
+          customCss: require.resolve('./src/css/custom.css')
+        },
       },
     ],
   ],
