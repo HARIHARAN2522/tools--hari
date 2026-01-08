@@ -12,6 +12,6 @@ service:
 ingress:
   enabled: false
   className: ""
-  host: docs.example.local
+  host: docs.cloudmasa.local
 
 resources: {}
