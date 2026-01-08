@@ -25,9 +25,25 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - |
-              cp -r /source/* /app/ &&
-              cd /app &&
-              npm install &&
+             
+              set -e
+              echo "📁 Files in /source:"
+              ls -la /source/
+              echo ""
+              echo "📦 Checking package.json..."
+              if [ ! -f /source/package.json ]; then
+                echo "❌ FATAL: package.json NOT FOUND in ConfigMap!"
+                exit 1
+              fi
+              echo "📄 Content of package.json:"
+              cat /source/package.json
+              echo ""
+              echo "🚀 Copying source to /app..."
+              cp -r /source/* /app/
+              cd /app
+              echo "⬇️ Running 'npm install' (max 2 minutes)..."
+              timeout 120s npm install --no-audit --quiet || { echo "💥 npm install FAILED!"; exit 1; }
+              echo "✅ npm install succeeded. Starting Docusaurus..."
               npm start
           volumeMounts:
             - name: cloudmasa-source
