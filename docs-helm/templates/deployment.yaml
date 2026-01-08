@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "my-app-docs.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "my-app-docs.name" . }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "my-app-docs.name" . }}
+    spec:
+      containers:
+        - name: cloudmasa
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 3000
+              name: http
+          env:
+            - name: NODE_ENV
+              value: "development"
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              cp -r /source/* /app/ &&
+              cd /app &&
+              npm install &&
+              npm start
+          volumeMounts:
+            - name: cloudmasa-source
+              mountPath: /source
+              readOnly: true
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: cloudmasa-source
+          configMap:
+            name: {{ include "my-app-docs.fullname" . }}-cloudmasa-source
+      restartPolicy: Always
