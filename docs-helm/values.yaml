@@ -1,0 +1,17 @@
+replicaCount: 1
+
+image:
+  repository: node
+  tag: "18"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: false
+  className: ""
+  host: docs.example.local
+
+resources: {}
