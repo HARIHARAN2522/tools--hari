@@ -1,12 +1,12 @@
-//cms-docs/files/cloudmasa.config.js
+// cms-docs/files/docusaurus.config.js
 module.exports = {
-  title: 'CloudMaSa Docs',
+  title: 'CloudMaSa Docs', 
   url: 'http://localhost',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   presets: [
     [
-      '@cloudmasa/preset-classic',
+      '@docusaurus/preset-classic', 
       {
         docs: { routeBasePath: '/' },
         blog: { enabled: true },
