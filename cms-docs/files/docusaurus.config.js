@@ -1,4 +1,4 @@
-// cms-docs/files/cloudmasa.config.js
+// cms-docs/files/docusaurus.config.js
 module.exports = {
   title: 'CloudMaSa Docs', 
   url: 'http://localhost',
