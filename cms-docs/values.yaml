@@ -14,5 +14,3 @@ ingress:
   enabled: false
   className: ""
   host: docs.cloudmasa.local
-
-resources: {}
