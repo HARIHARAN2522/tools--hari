@@ -1,3 +1,10 @@
-//cms-docs/files/src/pages/index.js
+import Layout from '@theme/Layout';
 import React from 'react';
-export default () => <div>Hello CloudMaSa</div>;
+
+export default function Home() {
+  return (
+    <Layout title="Home">
+      <div>Hello CloudMaSa</div>
+    </Layout>
+  );
+}
