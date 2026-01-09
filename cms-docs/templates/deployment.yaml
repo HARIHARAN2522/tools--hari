@@ -24,14 +24,14 @@ spec:
               value: "development"
           command: ["/bin/sh", "-c"]
           args:
-            - |
-              mkdir -p /app
-              cp -r /source/. /app/
-              cd /app
-              echo "📦 Installing dependencies (timeout 2m)..."
-              timeout 120s npm install --quiet || { echo "💥 npm install failed!"; exit 1; }
-              echo "🚀 Starting Docusaurus..."
-              npm start
+            args:
+              - |
+                mkdir -p /app
+                # Copy from the actual data directory, not symlinks
+                cp -r /source/..data/* /app/
+                cd /app
+                npm install
+                npm start
           volumeMounts:
             - name: cloudmasa-source
               mountPath: /source
