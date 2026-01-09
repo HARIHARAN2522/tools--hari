@@ -27,8 +27,7 @@ spec:
             - |
               set -e
               mkdir -p /app
-            
-              tar -cf - -C /source . | tar -xf - -C /app
+              cp -r /source/. /app/
               cd /app
               npm install
               npm start
