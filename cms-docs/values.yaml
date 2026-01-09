@@ -1,5 +1,4 @@
-//cms-docs/ values.yaml
-
+# values.yaml
 replicaCount: 1
 
 image:
@@ -10,7 +9,7 @@ image:
 service:
   type: ClusterIP
   port: 3000
-  
+
 ingress:
   enabled: false
   className: ""
