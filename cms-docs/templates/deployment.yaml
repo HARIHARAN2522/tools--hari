@@ -23,7 +23,6 @@ spec:
             - name: NODE_ENV
               value: "development"
           command: ["/bin/sh", "-c"]
-          args:
             args:
               - |
                 mkdir -p /app
