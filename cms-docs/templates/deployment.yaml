@@ -29,6 +29,11 @@ spec:
               mkdir -p /app
               cp -r /source/. /app/
               cd /app
+                # Verify critical file exists
+              if [ ! -f "src/css/custom.css" ]; then
+                echo "ERROR: src/css/custom.css is missing!" >&2
+                exit 1
+              fi
               npm install
               npm start
           volumeMounts:
