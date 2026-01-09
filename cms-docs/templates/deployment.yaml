@@ -23,22 +23,22 @@ spec:
             - name: NODE_ENV
               value: "development"
           command: ["/bin/sh", "-c"]
-            args:
-              - |
-                mkdir -p /app
-                # Copy from the actual data directory, not symlinks
-                cp -r /source/..data/* /app/
-                cd /app
-                npm install
-                npm start
+          args:                    # ← ✅ Same indent level as 'command'
+            - |
+              mkdir -p /app
+              # Copy from the actual data directory, not symlinks
+              cp -r /source/..data/* /app/
+              cd /app
+              npm install
+              npm start
           volumeMounts:
             - name: cloudmasa-source
               mountPath: /source
               readOnly: true
-         {{- if .Values.resources }}
-        resources:
-          {{- toYaml .Values.resources | nindent 12 }}
-        {{- end }}
+          {{- if .Values.resources }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- end }}
       volumes:
         - name: cloudmasa-source
           configMap:
