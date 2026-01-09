@@ -28,7 +28,9 @@ spec:
               mkdir -p /app
               cp -r /source/. /app/
               cd /app
-              npm install
+              echo "📦 Installing dependencies (timeout 2m)..."
+              timeout 120s npm install --quiet || { echo "💥 npm install failed!"; exit 1; }
+              echo "🚀 Starting Docusaurus..."
               npm start
           volumeMounts:
             - name: cloudmasa-source
