@@ -23,11 +23,12 @@ spec:
             - name: NODE_ENV
               value: "development"
           command: ["/bin/sh", "-c"]
-          args:                    
+          args:
             - |
+              set -e
               mkdir -p /app
-              # Copy from the actual data directory, not symlinks
-              cp -r /source/..data/* /app/
+              # Copy all content (including hidden) using tar
+              tar -cf - -C /source . | tar -xf - -C /app
               cd /app
               npm install
               npm start
