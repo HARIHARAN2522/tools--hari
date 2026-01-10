@@ -2,6 +2,8 @@
   "name": "CloudMaSa-docs",
   "scripts": {
     "start": "docusaurus start --host 0.0.0.0 --port 3000"
+    "build": "docusaurus build",          
+    "serve": "docusaurus serve"
   },
   "dependencies": {
     "@docusaurus/core": "^3.5.2",
