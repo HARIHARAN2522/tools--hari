@@ -1,6 +1,6 @@
 # User-provided at deploy time — keep defaults minimal
 image:
-  repository: ghcr.io/YOUR_USERNAME/docusaurus-docs
+  repository: ghcr.io/hariharan2522/docusaurus-docs
   tag: "1.0"
   pullPolicy: IfNotPresent
 
