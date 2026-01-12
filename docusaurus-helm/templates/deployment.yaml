@@ -1,7 +1,8 @@
+# deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "docusaurus-docs.fullname" . }}
+  name: {{ include "docusaurus-docs.name" . }}
   labels:
     {{- include "docusaurus-docs.labels" . | nindent 4 }}
 spec:
@@ -13,8 +14,6 @@ spec:
     metadata:
       labels:
         {{- include "docusaurus-docs.selectorLabels" . | nindent 8 }}
-    spec:
-  template:
     spec:
       containers:
         - name: nginx
