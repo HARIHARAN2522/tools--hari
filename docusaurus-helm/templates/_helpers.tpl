@@ -2,7 +2,7 @@
 Expand the name of the chart.
 */}}
 {{- define "docusaurus-docs.name" -}}
-{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" | required "Name cannot be empty" }}
 {{- end }}
 
 {{/*
@@ -17,16 +17,16 @@ Common labels
 */}}
 {{- define "docusaurus-docs.labels" -}}
 helm.sh/chart: {{ include "docusaurus-docs.chart" . }}
-app.kubernetes.io/name: {{ include "docusaurus-docs.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/name: {{ include "docusaurus-docs.name" . | quote }}
+app.kubernetes.io/instance: {{ .Release.Name | quote }}
 {{- end }}
 
 {{/*
 Selector labels
 */}}
 {{- define "docusaurus-docs.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "docusaurus-docs.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/name: {{ include "docusaurus-docs.name" . | quote }}
+app.kubernetes.io/instance: {{ .Release.Name | quote }}
 {{- end }}
 
 {{/*
