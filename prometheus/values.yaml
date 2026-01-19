@@ -133,7 +133,7 @@ server:
   thanos:
     enabled: true
     image: quay.io/thanos/thanos
-    tag: v0.34.1
+    tag: v0.37.0
     objectStorageConfig:
       secretName: thanos-objstore-config
       secretKey: objstore.yml 
