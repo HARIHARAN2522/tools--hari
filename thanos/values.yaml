@@ -31,7 +31,7 @@ query:
   dnsDiscovery:
     enabled: true
   stores:
-    - "dnssrv+_grpc._tcp.prom-prometheus-server.prom.svc.cluster.local"
+    -"prometheus-server.prom.svc.cluster.local:10901"
     - "dnssrv+_grpc._tcp.thanos-storegateway.thanos.svc.cluster.local"
   ports:
     http: 10902
